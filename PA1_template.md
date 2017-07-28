@@ -20,10 +20,12 @@ rdata <- read.csv("~/project1/activity.csv", header = TRUE, sep = ",",
 str(rdata)
 ```
 
-'data.frame':	17568 obs. of  3 variables:
- $ steps   : num  NA NA NA NA NA NA NA NA NA NA ...
- $ date    : chr  "2012-10-01" "2012-10-01" "2012-10-01" "2012-10-01" ...
- $ interval: num  0 5 10 15 20 25 30 35 40 45 ...
+```
+## 'data.frame':	17568 obs. of  3 variables:
+##  $ steps   : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ date    : chr  "2012-10-01" "2012-10-01" "2012-10-01" "2012-10-01" ...
+##  $ interval: num  0 5 10 15 20 25 30 35 40 45 ...
+```
 
 ## transform the data
 
@@ -36,10 +38,12 @@ rdata$interval <- as.factor(rdata$interval)
 str(rdata)
 ```
 
-'data.frame':	17568 obs. of  3 variables:
- $ steps   : num  NA NA NA NA NA NA NA NA NA NA ...
- $ date    : Date, format: "2012-10-01" "2012-10-01" ...
- $ interval: Factor w/ 288 levels "0","5","10","15",..: 1 2 3 4 5 6 7 8 9 10 ...
+```
+## 'data.frame':	17568 obs. of  3 variables:
+##  $ steps   : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ date    : Date, format: "2012-10-01" "2012-10-01" ...
+##  $ interval: Factor w/ 288 levels "0","5","10","15",..: 1 2 3 4 5 6 7 8 9 10 ...
+```
 
 # what is mean total number of steps taken per day?
 1. calculation of total no. of steps per day
@@ -50,13 +54,15 @@ colnames(steps_day) <- c("date","steps")
 head(steps_day)
 ```
 
-        date steps
-1 2012-10-02   126
-2 2012-10-03 11352
-3 2012-10-04 12116
-4 2012-10-05 13294
-5 2012-10-06 15420
-6 2012-10-07 11015
+```
+##         date steps
+## 1 2012-10-02   126
+## 2 2012-10-03 11352
+## 3 2012-10-04 12116
+## 4 2012-10-05 13294
+## 5 2012-10-06 15420
+## 6 2012-10-07 11015
+```
 
 2. histogram of the total number of steps taken each day
 
@@ -76,13 +82,17 @@ steps_median <- median(steps_day$steps, na.rm=TRUE)
 steps_mean
 ```
 
-[1] 10766.19
+```
+## [1] 10766.19
+```
 
 ```r
 steps_median
 ```
 
-[1] 10765
+```
+## [1] 10765
+```
 
 # What is the average daily activity pattern?
 
@@ -94,13 +104,15 @@ colnames(steps_interval) <- c("interval","steps")
 head(steps_interval)
 ```
 
-  interval     steps
-1        0 1.7169811
-2        5 0.3396226
-3       10 0.1320755
-4       15 0.1509434
-5       20 0.0754717
-6       25 2.0943396
+```
+##   interval     steps
+## 1        0 1.7169811
+## 2        5 0.3396226
+## 3       10 0.1320755
+## 4       15 0.1509434
+## 5       20 0.0754717
+## 6       25 2.0943396
+```
 
 ```r
 ggplot(steps_interval,  aes(x = as.numeric(as.character(interval)), y = steps)) + xlab("interval") +theme_light()+geom_line()
@@ -116,8 +128,10 @@ max <- steps_interval$interval[which.max(steps_interval$steps)]
 max
 ```
 
-[1] 835
-288 Levels: 0 5 10 15 20 25 30 35 40 45 50 55 100 105 110 115 120 ... 2355
+```
+## [1] 835
+## 288 Levels: 0 5 10 15 20 25 30 35 40 45 50 55 100 105 110 115 120 ... 2355
+```
 835 contains maximum number of steps
 
 # Imputing missing values
@@ -131,7 +145,9 @@ missing_vals <- sum(is.na(rdata$steps))
 missing_vals
 ```
 
-[1] 2304
+```
+## [1] 2304
+```
 
 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
@@ -144,13 +160,15 @@ rdata2$steps[is.na(rdata2$steps)] <- mean(rdata$steps, na.rm=TRUE)
 head(rdata2)
 ```
 
-      steps       date interval
-1 1.7169811 2012-10-01        0
-2 0.3396226 2012-10-01        5
-3 0.1320755 2012-10-01       10
-4 0.1509434 2012-10-01       15
-5 0.0754717 2012-10-01       20
-6 2.0943396 2012-10-01       25
+```
+##       steps       date interval
+## 1 1.7169811 2012-10-01        0
+## 2 0.3396226 2012-10-01        5
+## 3 0.1320755 2012-10-01       10
+## 4 0.1509434 2012-10-01       15
+## 5 0.0754717 2012-10-01       20
+## 6 2.0943396 2012-10-01       25
+```
 
 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
@@ -158,7 +176,9 @@ head(rdata2)
 sum(is.na(rdata2$steps))
 ```
 
-[1] 0
+```
+## [1] 0
+```
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
@@ -169,13 +189,15 @@ colnames(steps_day2) <- c("date","steps")
 head(steps_day2)
 ```
 
-        date    steps
-1 2012-10-01 10766.19
-2 2012-10-02   126.00
-3 2012-10-03 11352.00
-4 2012-10-04 12116.00
-5 2012-10-05 13294.00
-6 2012-10-06 15420.00
+```
+##         date    steps
+## 1 2012-10-01 10766.19
+## 2 2012-10-02   126.00
+## 3 2012-10-03 11352.00
+## 4 2012-10-04 12116.00
+## 5 2012-10-05 13294.00
+## 6 2012-10-06 15420.00
+```
 
 ```r
 steps_mean2   <- mean(steps_day2$steps, na.rm=TRUE)
@@ -183,13 +205,17 @@ steps_median2 <- median(steps_day2$steps, na.rm=TRUE)
 steps_mean2
 ```
 
-[1] 10766.19
+```
+## [1] 10766.19
+```
 
 ```r
 steps_median2
 ```
 
-[1] 10766.19
+```
+## [1] 10766.19
+```
 the mean is same, but the median value slighlty goes up and closer to the mean because the missing values are replaced by the mean value of the day and intervals.
 
 
