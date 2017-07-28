@@ -2,11 +2,13 @@
 title: "reproducible_assignment"
 author: "ck kang"
 date: "2017.7."
-output: html_document
----
+output:
+    html_document:
+    keep_md
+ ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval  = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Loading and preprocessing the data
@@ -16,7 +18,7 @@ Load the data
 ```{r}
 library(ggplot2)
 library(lattice)
-rdata <- read.csv("~/project1/activity.csv", header = TRUE, sep = ",",
+rdata <- read.csv("~/GitHub/PA1_template/activity.csv", header = TRUE, sep = ",",
                   colClasses=c("numeric", "character", "numeric"))
 str(rdata)
 ```
@@ -60,7 +62,7 @@ steps_median
 ```{r}
 steps_interval <- aggregate(steps ~ interval, rdata, mean, na.rm=TRUE)
 colnames(steps_interval) <- c("interval","steps")
-head(steps_interval)
+
 ggplot(steps_interval,  aes(x = as.numeric(as.character(interval)), y = steps)) + xlab("interval") +theme_light()+geom_line()
 ```
 
@@ -102,7 +104,7 @@ sum(is.na(rdata2$steps))
 ```{r}
 steps_day2 <- aggregate(steps ~ date, rdata2, sum)
 colnames(steps_day2) <- c("date","steps")
-head(steps_day2)
+
 steps_mean2   <- mean(steps_day2$steps, na.rm=TRUE)
 steps_median2 <- median(steps_day2$steps, na.rm=TRUE)
 steps_mean2

@@ -2,8 +2,10 @@
 title: "reproducible_assignment"
 author: "ck kang"
 date: "2017.7."
-output: html_document
----
+output:
+    html_document:
+    keep_md
+ ---
 
 
 
@@ -15,7 +17,7 @@ Load the data
 ```r
 library(ggplot2)
 library(lattice)
-rdata <- read.csv("~/project1/activity.csv", header = TRUE, sep = ",",
+rdata <- read.csv("~/GitHub/PA1_template/activity.csv", header = TRUE, sep = ",",
                   colClasses=c("numeric", "character", "numeric"))
 str(rdata)
 ```
@@ -73,7 +75,7 @@ hist(steps_day$steps,
      xlab="Total Number of Steps Taken Daily")
 ```
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png)
 3. Calculate and report the mean and median of the total number of steps taken per day
 
 ```r
@@ -101,24 +103,11 @@ steps_median
 ```r
 steps_interval <- aggregate(steps ~ interval, rdata, mean, na.rm=TRUE)
 colnames(steps_interval) <- c("interval","steps")
-head(steps_interval)
-```
 
-```
-##   interval     steps
-## 1        0 1.7169811
-## 2        5 0.3396226
-## 3       10 0.1320755
-## 4       15 0.1509434
-## 5       20 0.0754717
-## 6       25 2.0943396
-```
-
-```r
 ggplot(steps_interval,  aes(x = as.numeric(as.character(interval)), y = steps)) + xlab("interval") +theme_light()+geom_line()
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
+![plot of chunk unnamed-chunk-20](figure/unnamed-chunk-20-1.png)
 
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -186,20 +175,7 @@ sum(is.na(rdata2$steps))
 ```r
 steps_day2 <- aggregate(steps ~ date, rdata2, sum)
 colnames(steps_day2) <- c("date","steps")
-head(steps_day2)
-```
 
-```
-##         date    steps
-## 1 2012-10-01 10766.19
-## 2 2012-10-02   126.00
-## 3 2012-10-03 11352.00
-## 4 2012-10-04 12116.00
-## 5 2012-10-05 13294.00
-## 6 2012-10-06 15420.00
-```
-
-```r
 steps_mean2   <- mean(steps_day2$steps, na.rm=TRUE)
 steps_median2 <- median(steps_day2$steps, na.rm=TRUE)
 steps_mean2
@@ -227,7 +203,7 @@ hist(steps_day$steps, breaks=10, border="orange", xlab="Number of Steps", add=T)
 legend("topright", c("Imputed", "Non-imputed"), col=c("blue", "orange"), lwd=5)
 ```
 
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-26](figure/unnamed-chunk-26-1.png)
 
 
 
@@ -259,4 +235,4 @@ g4 <- ggplot(steps_day4, aes(x = as.numeric(as.character(interval)),y = steps), 
 g4 + geom_line() + facet_grid(. ~ weekday)
 ```
 
-![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-28](figure/unnamed-chunk-28-1.png)
