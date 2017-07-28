@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, results = "asis")
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Loading and preprocessing the data
@@ -60,7 +60,7 @@ steps_median
 ```{r}
 steps_interval <- aggregate(steps ~ interval, rdata, mean, na.rm=TRUE)
 colnames(steps_interval) <- c("interval","steps")
-steps_interval
+head(steps_interval)
 ggplot(steps_interval,  aes(x = as.numeric(as.character(interval)), y = steps)) + xlab("interval") +theme_light()+geom_line()
 ```
 
